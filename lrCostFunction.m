@@ -35,8 +35,28 @@ grad = zeros(size(theta));
 %           temp(1) = 0;   % because we don't add anything for j = 0  
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
+n = size(X)(2)
 
+h = sigmoid(X * theta);
 
+% Calculating the cost function J
+J = 1 / m * sum((-y) .* log(h) - (1 - y) .* log(1 - h));
+
+lambda_terms = lambda / (2 * m) * (theta .^ 2);
+lambda_terms(1) = 0; % don't regularize for j = 0
+assert(size(lambda_terms)(1) == n);
+
+J = J + sum(lambda_terms);
+
+% Calculating the gradient
+
+grad = 1 / m * X' * (h - y);
+
+lambda_terms = (lambda / m) * theta;
+lambda_terms(1) = 0;
+assert(size(lambda_terms)(1) == size(theta)(1));
+
+grad = grad + lambda_terms;
 
 
 
