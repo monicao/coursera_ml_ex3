@@ -30,8 +30,10 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
+% max will return the value and the index of the value
+% http://www.gnu.org/software/octave/doc/interpreter/Utility-Functions.html
 
-
+[confidence, p] = max(sigmoid(X * all_theta'), [], 2);
 
 
 
