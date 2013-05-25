@@ -40,10 +40,10 @@ m = size(X, 1);
 sel = randperm(size(X, 1));
 sel = sel(1:100);
 
-displayData(X(sel, :));
+% displayData(X(sel, :));
 
-fprintf('Program paused. Press enter to continue.\n');
-pause;
+% fprintf('Program paused. Press enter to continue.\n');
+% pause;
 
 %% ================ Part 2: Loading Pameters ================
 % In this part of the exercise, we load some pre-initialized 
@@ -60,7 +60,7 @@ load('ex3weights.mat');
 %  neural network to predict the labels of the training set. This lets
 %  you compute the training set accuracy.
 
-pred = predict(Theta1, Theta2, X);
+[confidence, pred] = predict(Theta1, Theta2, X);
 
 fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
 
@@ -78,8 +78,9 @@ for i = 1:m
     fprintf('\nDisplaying Example Image\n');
     displayData(X(rp(i), :));
 
-    pred = predict(Theta1, Theta2, X(rp(i),:));
-    fprintf('\nNeural Network Prediction: %d (digit %d)\n', pred, mod(pred, 10));
+    [confidence, pred] = predict(Theta1, Theta2, X(rp(i),:));
+    fprintf('\nNeural Network Prediction: %d (digit %d)\n.', pred, mod(pred, 10));
+    fprintf('\nConfidence: %f; Actual: %d \n', confidence, y(rp(i)));
     
     % Pause
     fprintf('Program paused. Press enter to continue.\n');

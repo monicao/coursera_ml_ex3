@@ -1,4 +1,4 @@
-function p = predict(Theta1, Theta2, X)
+function [confidence, p] = predict(Theta1, Theta2, X)
 %PREDICT Predict the label of an input given a trained neural network
 %   p = PREDICT(Theta1, Theta2, X) outputs the predicted label of X given the
 %   trained weights of a neural network (Theta1, Theta2)
@@ -22,8 +22,18 @@ p = zeros(size(X, 1), 1);
 %
 
 
+X = [ones(size(X, 1), 1) X]; % 5000 x 401
 
+% Compute the hidden layer
+% Theta1: 25 x 401
+a2 = sigmoid(X * Theta1'); % 5000 x 25
+a2 = [ones(size(a2, 1), 1) a2]; % 5000 x 26
 
+% Compute the output layer
+% Theta2: 10 x 26
+a3 = sigmoid(a2 * Theta2');  % 5000 x 10
+
+[confidence, p] = max(a3, [], 2);
 
 
 
